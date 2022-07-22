@@ -1,0 +1,152 @@
+{% extends 'base.html' %}
+
+{% block navbar %}
+{% endblock %}
+
+{% block content %}
+
+    <!-- Page content -->
+    <div class="container-fluid" style="background: white; height: 300em; align-items: center">
+        <div class="row d-flex justify-content-center">
+            <div class="col-12 col-xl-10">
+                    <div class="card mb-4 mx--2">
+                        <!-- Card header -->
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between ">
+                                <h6 class="mb-0">Resumo do Condominio</h6>
+
+                            </div>
+                            <div class="d-flex justify-content-between mt-1">
+                                <span class="text-xs text-muted">
+                                    Vencimento: {{ invoice.due_date|date:"d/m/Y" }}
+                                </span>
+                                <span class="text-xs text-muted">
+                                    Fração: {{ invoice.apartment.percent_meter }}%
+                                </span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="table-responsive">
+                                <table class="table align-items-center table-flush ">
+
+                                    <tbody class="list">
+                                    {% for bca in invoice.billing_condo_apartment.all %}
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="d-flex justify-content-between">
+                                                <span class="text-sm">
+                                                {{ bca.billing_condo.get_category_display }}
+                                                </span>
+                                                    {% if bca.billing_condo.installments > 1 %}
+                                                        <span class="badge badge-default badge-pill badge-sm"> Parcela {{ bca.installment }}/{{ bca.billing_condo.installments }}</span>
+                                                    {% endif %}
+                                                </div>
+                                            </td>
+                                            <td class="text-sm">
+                                                R$ {{ bca.billing_condo.value }}
+                                            </td>
+                                            <td class="text-sm">
+                                                R$ {{ bca.value }}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="text-right text-sm">
+                                            <strong>Condomínio</strong>
+                                        </td>
+                                        <td class="text-sm">
+                                            <strong>R$ {{ invoice.total_invoice_condo }}</strong>
+                                        </td>
+                                    </tr>
+                                    {% for bai in invoice.billing_apartment_installment.all %}
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="d-flex justify-content-between text-sm">
+                                                    {{ bai.billing_apartment.description }}
+                                                    {% if bai.billing_apartment.installments > 1 %}
+                                                        <span class="badge badge-default badge-pill"> Parcela {{ bai.installment }}/{{ bai.billing_apartment.installments }}</span>
+                                                    {% endif %}
+                                                </div>
+                                            </td>
+                                            <td class="text-sm">
+                                                R$ {{ bai.billing_apartment.value }}
+                                            </td>
+                                            <td class="text-sm">
+                                                R$ {{ bai.value }}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+
+                                    {% if invoice.billing_apartment_gas %}
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="row">
+                                                    <div class="col-3 text-center">
+                                                        <div class="text-xs">Leitura
+                                                            Anterior
+                                                        </div>
+                                                        <span class="text-sm">{{ invoice.billing_apartment_gas.previous_reading }}</span>
+                                                        <div class="text-xs text-muted ">
+                                                            {{ invoice.billing_apartment_gas.starts_date|date:"d-M-Y" }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-3  text-center">
+                                                        <div class="text-xs">Leitura
+                                                            Atual
+                                                        </div>
+                                                        <span class="text-sm">{{ invoice.billing_apartment_gas.current_reading }}</span>
+                                                        <div class="text-xs text-muted ">
+                                                            {{ invoice.billing_apartment_gas.ends_date|date:"d-M-Y" }}
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-3 text-center">
+                                                        <div class="text-xs">Consumo
+                                                            m3
+                                                        </div>
+                                                        <span class="text-sm">
+                                                        {{ invoice.billing_apartment_gas.consumed }}</span>
+                                                    </div>
+                                                </div>
+
+                                            </td>
+                                            <td class="text-right">
+                                                <div class="d-flex justify-content-between">
+
+                                                    <strong class="text-sm">Gás</strong>
+                                                </div>
+
+                                            </td>
+                                            <td class="text-sm">
+                                                R$ {{ invoice.billing_apartment_gas.total }}</td>
+                                        </tr>
+                                    {% endif %}
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="text-right"><strong>Total</strong>
+                                        </td>
+                                        <td><strong>R$ {{ invoice.total }}</strong></td>
+
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+
+{% endblock content %}
+{% block footer %}
+
+{% endblock %}

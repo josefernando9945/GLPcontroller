@@ -1,0 +1,103 @@
+{% load static %}
+{% load i18n static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+   <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Sistema Gerenciamento de condominio">
+    <meta name="author" content=Algoritmus">
+    <title>Bloco B3</title>
+    {% block style %}
+
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700"
+              rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">        <!-- Icons -->
+        <link href="{% static 'css/nucleo-icons.css' %}" rel="stylesheet"/>
+        <link href="{% static 'css/nucleo-svg.css' %}" rel="stylesheet"/>
+
+        <!-- Font Awesome Icons -->
+       <link href="{% static 'vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet">
+
+        <!-- CSS Files -->
+        <link id="pagestyle" href="{% static 'css/argon-dashboard.css' %}"
+              rel="stylesheet"/>
+
+
+    {% endblock style %}
+</head>
+<body class="g-sidenav-show bg-gray-100">
+<div class="min-height-250 position-absolute w-100" style="background-image: linear-gradient(#006f4e 35%, #2dce69); border-color: #fff;"></div>
+
+{% block sidebar %}{% if request.user.is_authenticated %}
+    <!-- Sidenav -->
+    {% include "includes/sidebar.html" %}{% endif %}
+{% endblock %}
+<!-- Main content -->
+<main class="main-content position-relative border-radius-lg ">
+    <!-- Topnav -->
+    {% block navbar %}{% if request.user.is_authenticated %}
+        {% include "includes/navbar.html" %}{% endif %}
+    {% endblock %}
+    <!-- Header -->
+
+    <!-- Page content -->
+    {% block content %}
+
+    {% endblock content %}
+    {% block footer %}
+    <!-- Footer -->
+    <footer class="nav-footer mt-4  pt-0">
+        <div class=" ">
+            <div class="col-12">
+                <div class="copyright text-center   text-muted">
+                   <strong> &copy; 2022 Bloco B3</strong>
+                </div>
+            </div>
+
+        </div>
+    </footer>
+{% endblock %}
+</main>
+
+<!-- Argon Scripts -->
+<!-- Core -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+{% block script %}
+   <!-- Core -->
+    <script src="{% static 'js/core/popper.min.js' %}"></script>
+    <script src="{% static 'js/core/bootstrap.min.js' %}"></script>
+
+<!-- Theme JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
+    <script src="{% static 'js/argon-dashboard.min.js' %}"></script>
+    <script src="{% static 'js/plugins/perfect-scrollbar.min.js' %}"></script>
+    <script src="{% static 'js/plugins/smooth-scrollbar.min.js' %}"></script>
+{% endblock %}
+{% block extra_script %}
+
+{% endblock extra_script %}
+{% block inline_script %}
+
+{% endblock inline_script %}
+
+{% block js %}
+
+{% endblock js %}
+<script>
+
+$(document).ready(function(){
+    if($(window).width()< 1200)
+        $("body").addClass("g-sidenav-hidden");
+    $("#iconSidenav").on("click", function(){
+       if ($("body").removeClass("g-sidenav-pinned"))
+        $("body").addClass("g-sidenav-hidden");
+      });
+});
+
+</script>
+
+</body>
+</html>

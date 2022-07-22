@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+{% include "includes/messages.html" %}
+    <!-- Page content -->
+    <div class="container-fluid mt-5">
+
+        <div class="row">
+            <div class="col-12 col-xl-4 order-xl-2 mb-3">
+            {% include "condo/includes/sidebar_settings.html" %}
+                <!-- Progress track -->
+            </div>
+            <div class="col-12 col-xl-8 order-xl-1">
+                <form method="post" action="." enctype="multipart/form-data" class="">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row align-items-center">
+                                <div class="col-8">
+                                    <h5 class="mb-0"><h5 class="mb-0">Dados Bancários </h5></h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+
+
+                                <div class="row">
+                                    {% csrf_token %}
+                                    {% include "includes/form.html" with col="col-6" %}
+                                </div>
+
+                        </div>
+                    </div>
+                    <div class="col-12 mt-4 text-right d-flex justify-content-between">
+                        <a href="{% url 'settings_condo' %}" class="btn btn-neutral">Voltar</a>
+                        <button type="submit" class="btn btn-primary">Salvar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+{% endblock %}
+
+{% block extra_script %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#id_phone').mask("(00) 00000-0000");
+            $('#id_birthday').mask("00/00/0000");
+            $('#id_account_number').mask("0000000");
+        });
+    </script>
+{% endblock extra_script %}

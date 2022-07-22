@@ -1,0 +1,117 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+    <!-- Header -->
+    <!-- Header -->
+
+    <!-- Page content -->
+    <div class="container-fluid mt-8 ">
+        <!-- Table -->
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <!-- Card header -->
+                    <div class="card-header d-flex justify-content-between">
+                        <h3 class="mb-0">Lista de Funcionarios</h3>
+                         <div class="col-lg-6 col-5 text-right">
+                        <a href="{% url 'create_employee' %}" class="btn btn-sm btn-success">Cadrastar Funcionario</a>
+                             <a class="dropdown">
+                                 <button class="btn btn-sm btn-success" type="button" id="" data-bs-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
+                                                Filtrar
+
+                                            </button><ul class="dropdown-menu">
+                                 <form class="navbar-search navbar-search-light form-inline" id="navbar-search-main">
+
+              <div class="input-group input-group-alternative ">
+
+                  <span class="input-group-text"><i class="fas fa-search"></i></span>
+
+                <input class="form-control" placeholder="Search" type="text" name="search">
+              </div>
+          </form>
+                                            </ul>
+                                        </a>
+
+                    </div>
+                    </div>
+                    <div class="table-responsive py-4 px-4">
+                        <table class="table align-items-center table-flush">
+                            <thead class="thead-light">
+                            <tr>
+                                <th class="col">Nome</th>
+                                <th class="col">Telefone</th>
+                                <th class="col">Rua</th>
+                                <th class="col">Bairro</th>
+                                <th class="col">Cidade</th>
+                                <th class="col">Estado</th>
+                                <th class="col">CEP</th>
+
+
+                                <th scope="col"></th>
+
+                            </tr>
+                            </thead>
+                            <tbody class="list">
+                            {% for employee in object_list %}
+                                <tr>
+                                        <td class="text-sm">
+                                            <a href="">
+                                                {{ employee.first_name }} {{ employee.last_name }}
+                                            </a>
+                                        </td>
+                                    <td class="text-sm">
+                                        {{ employee.phone }}
+                                    </td>
+                                    <td class="text-sm">
+                                        {{ employee.email }}
+                                    </td>
+                                    <td class="text-sm">
+                                        {{ employee.district }}
+                                    </td>
+                                    <td class="text-sm">
+                                        {{ employee.city }}
+                                    </td>
+                                    <td class="text-sm">
+                                        {{ employee.state }}
+                                    </td>
+                                    <td class="text-sm">
+                                        {{ employee.cep }}
+                                    </td>
+                                    <td class="text-right d-flex justify-content-center">
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm btn-link" type="button"
+                                                    id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="false"
+                                                    aria-expanded="false">
+                                                <i class="fas fa-ellipsis-v text-dark"></i>
+
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item-text"
+                                                   href="{% url 'update_employee' employee.id %}">
+                                                    <i class="fas fa-user text-primary"></i>
+                                                    <span class="text-sm ">Editar</span>
+                                                </a></li>
+
+                                                <li><a class="dropdown-item-text"
+                                                   href="{% url 'delete_employee' employee.id %}">
+                                                    <i class="fas fa-trash text-danger "></i>
+                                                    <span class="text-sm ">Excluir</span>
+                                                </a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                       {% endfor %}
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+
+
+{% endblock content %}

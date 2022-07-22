@@ -1,0 +1,106 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+    <div class="container-fluid mt-5">
+        {% include "includes/messages.html" %}
+        <!-- Table -->
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <!-- Card header -->
+                    <div class="card-header d-inline-flex justify-content-between">
+                        <h5 class="mb-0 ">Apartamentos ({{ object_list.count }})</h5>
+                        <a href="{% url 'apartment_create' %}" class="btn btn-sm btn-primary">Novo Apartamento</a>
+                    </div>
+                    <div class=" table-responsive py-4 px-4">
+                        <table class="table align-items-center table-flush">
+                            <thead class="thead-light">
+                            <tr>
+                                <th scope="col" class="px-1">Nome</th>
+
+                                <th scope="col" class="px-1">Email</th>
+                                <th scope="col" class="px-1">Telefone</th>
+                                <th scope="col" class="px-1">Fração</th>
+
+
+                                <th scope="col" class="px-1"></th>
+                            </tr>
+                            </thead>
+                            <tbody class="list">
+                            {% for apartment in object_list %}
+                                <tr>
+                                <td>
+                                    <a class="text-sm" href="{% url 'apartment_detail' apartment.id %}">
+                                        {{ apartment.number }} - {{ apartment.name }}
+                                    </a>
+                                </td>
+
+                                <td class="text-sm">
+                                    {% if apartment.email %}{{ apartment.email }}{% endif %}
+                                </td>
+                                <td class="text-sm">
+                                    {% if apartment.phone %}{{ apartment.phone }}{% endif %}
+                                </td>
+                                <td class="text-sm">
+                                    {% if apartment.percent_meter %}{{ apartment.percent_meter }} % {% endif %}
+                                </td>
+
+                                <td class="text-right d-flex justify-content-center">
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm btn-link " type="button"
+                                                id="dropdownMenu" data-bs-toggle="dropdown"
+                                                aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v text-dark"></i>
+
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item-text"
+                                                   href="{% url 'apartment_update' apartment.id %}">
+                                                <i class="fas fa-user text-primary "></i>
+                                                <span class="text-sm ">Editar</span>
+                                            </a></li>
+
+                                            <li><a class="dropdown-item-text"
+                                                   href="{% url 'apartment_delete' apartment.id %}">
+                                                <i class="fas fa-trash text-danger "></i>
+                                                <span class="text-sm ">Excluir</span>
+                                            </a></li>
+                                        </ul>
+                                    </div>
+                                </td>{% endfor %}
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="card-footer py-4">
+                        <nav aria-label="...">
+                            <ul class="pagination justify-content-end mb-0">
+
+                                {% for num in paginator.page_range %}
+                                    <li class="page-item active">
+                                        <a class="page-link" href="?page={{ num }}" data-page="1">{{ num }}</a>
+                                    </li>
+                                {% endfor %}
+                                {% if page_obj.has_next %}
+
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ page_obj.next_page_number }}" data-page="2">
+                                            <i class="fas fa-angle-right"></i>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+
+
+{% endblock content %}
+

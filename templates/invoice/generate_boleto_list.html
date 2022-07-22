@@ -1,0 +1,162 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+    <!-- Page content -->
+    <div class="container-fluid mt-5">
+        <div class="d-flex justify-content-between align-content-center mb-3 ">
+            <h4 class="text-white">Gerar Boletos</h4>
+            <div class="dropdown">
+
+            </div>
+        </div>
+        <!-- Table -->{% if object_list_not_paid %}
+
+        <div class="card">
+            <!-- Card header -->
+
+
+            <form method="post" action="." enctype="multipart/form-data" class="">
+                {% csrf_token %}
+                <div class="card-header d-flex justify-content-between">
+                    <h5 class="text-red">Gerar Boletos Vencidos</h5>
+                    <button type="submit" class="btn btn-sm btn-danger">Gerar 2ºVia do Boleto</button>
+                </div>
+                <div class=" table-responsive py-2 px-2">
+                    <table class="table align-items-center ">
+                        <thead class="thead-light">
+                        <tr>
+                            <th scope="col" class="checkbox px-2">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="checkTodos">
+                                    <label class="form-check-label" for="checkTodos">
+                                    </label>
+                                </div>
+                            </th>
+                            <th scope="col" class="px-1">Apartamento/Nome</th>
+                            <th scope="col" class="px-1">Valor</th>
+                            <th scope="col" class="px-1">Mes de Referencia</th>
+                            <th scope="col" class="px-1"></th>
+                        </tr>
+                        </thead>
+                        <tbody class="list">
+                        {% for invoice in object_list_not_paid %}
+                            <tr>
+                                <td class="checkbox">
+                                    <div class="form-check">
+                                        <input class="form-check-input checkbox" type="checkbox" name="invoice"
+                                               value="{{ invoice.id }}"
+                                               id="flexCheckDefault">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                        </label>
+                                    </div>
+                                </td>
+                                <td class="text-sm">
+                                    {{ invoice.apartment }}
+                                </td>
+                                <td class="text-sm">
+                                    {{ invoice.total }}
+                                </td>
+                                <td class="text-sm">
+                                    {{ invoice.created_at|date:"M/Y" }}
+                                </td>
+                                <td class="text-sm"></td>
+                            </tr>
+
+                        {% endfor %}
+
+                        </tbody>
+                    </table>
+                </div>
+            </form>
+        </div>
+
+        </div>{% endif %}
+
+    <div class="container-fluid mt-5">
+        <!-- Table -->
+        <div class="row">
+            <div class="col center">
+                <div class="card">
+                    <form method="post" action="." enctype="multipart/form-data" class="">
+                        {% csrf_token %}
+                        <div class="card-header d-flex justify-content-between">
+                            <h5 class="">Gerar Boletos</h5>
+                            <button type="submit" class="btn btn-sm btn-primary">Gerar Boleto</button>
+                        </div>
+                        <div class=" table-responsive py-2 px-2">
+                            <table class="table align-items-center ">
+                                <thead class="thead-light">
+                                <tr>
+                                    <th scope="col" class="checkbox px-2">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" value="" id="checkTodos2">
+                                            <label class="form-check-label" for="checkTodos2">
+                                            </label>
+                                        </div>
+                                    </th>
+                                    <th scope="col" class="px-1">Apartamento/Nome</th>
+                                    <th scope="col" class="px-1">Valor</th>
+                                    <th scope="col" class="px-1">Mes de Referencia</th>
+                                    <th scope="col" class="px-1">vencimento</th>
+                                </tr>
+                                </thead>
+                                <tbody class="list">{% for invoice in object_list %}
+                                    <tr>
+                                        <td class="checkbox">
+                                            <div class="form-check">
+                                                <input class="form-check-input checkbox2" type="checkbox" name="invoice"
+                                                       value="{{ invoice.id }}"
+                                                       id="flexCheckDefault">
+                                                <label class="form-check-label" for="flexCheckDefault">
+                                                </label>
+                                            </div>
+                                        </td>
+                                        <td class="text-sm">
+                                            {{ invoice.apartment }}
+                                        </td>
+                                         <td class="text-sm">
+                                            {{ invoice.total }}
+                                        </td>
+                                        <td class="text-sm">
+                                            {{ invoice.created_at|date:"d/M/Y" }}
+                                        </td>
+                                        <td class="text-sm">{{ invoice.due_date|date:"d/M/Y" }}</td>
+                                    </tr>
+
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+
+
+{% endblock content %}
+
+{% block extra_script %}
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#id_phone').mask("(00) 00000-0000");
+            $('#id_birthday').mask("00/00/0000");
+            $('#id_cep').mask("00000-000");
+        });
+        $("#checkTodos").click(function () {
+            $('.checkbox').not(this).prop('checked', this.checked);
+        });
+        $("#checkTodos2").click(function () {
+            $('.checkbox2').not(this).prop('checked', this.checked);
+        });
+
+    </script>
+{% endblock extra_script %}
+
+

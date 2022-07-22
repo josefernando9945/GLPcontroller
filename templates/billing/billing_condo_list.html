@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+    <!-- Page content -->
+    <div class="container-fluid mt-5">
+    {% include "includes/messages.html" %}
+        <!-- Table -->
+        <div class="row">
+            <div class="col col-xl">
+                <div class="card">
+                    <!-- Card header -->
+                    <div class="card-header d-flex justify-content-between">
+                        <h5 class="">Cobranças do Condominio</h5>
+                        <div>
+                            <a href="{% url 'billing:billing_condo_create' %}"
+                               class="btn btn-sm btn-primary">Nova Cobrança</a>
+                        </div>
+                    </div>
+
+                    <div class=" table-responsive py-4 px-4">
+                        <table class="table align-items-center ">
+                            <thead class="thead-light">
+                            <tr>
+                                <th scope="col" class="px-1">Nome</th>
+                                <th scope="col" class="px-1">Valor</th>
+                                <th scope="col" class="px-1">Vencimento</th>
+                                <th scope="col" class="px-1"></th>
+                            </tr>
+                            </thead>
+                            <tbody class="">
+                            {% for billing_condo in object_list %}
+                                <tr>
+                                    <td class="">
+                                        <a class="btn-link p-1 text-sm"
+                                           href="{% url 'billing:billing_condo_detail' billing_condo.id %}">
+                                            {{ billing_condo }}
+                                        </a>
+                                    </td>
+                                    <td class="text-sm">
+                                        R$ {{ billing_condo.value }}
+                                    </td>
+                                    <td class="text-sm ">
+                                        {{ billing_condo.due_date|date:'d/m/Y' }}
+                                    </td>
+                                    <td class="text-right d-flex justify-content-center">
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm btn-link " type="button"
+                                                    id="dropdownMenu" data-bs-toggle="dropdown"
+                                                    aria-expanded="false">
+                                                <i class="fas fa-ellipsis-v text-dark"></i>
+
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item-text"
+                                                       href="{% url 'billing:billing_condo_update' billing_condo.id %}">
+                                                    <i class="fas fa-user text-primary "></i>
+                                                    <span class="text-sm ">Editar</span>
+                                                </a></li>
+
+                                                <li><a class="dropdown-item-text"
+                                                       href="{% url 'billing:billing_condo_delete' billing_condo.id %}">
+                                                    <i class="fas fa-trash text-danger "></i>
+                                                    <span class="text-sm ">Excluir</span>
+                                                </a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+
+
+{% endblock content %}
+

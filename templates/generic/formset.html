@@ -1,0 +1,47 @@
+{% load formset_tags %}
+{% for error in formset.non_form_errors %}
+    <p class="text-danger text-center">{{ error }}</p>
+{% endfor %}
+<div id="formset_{{ formset.prefix }}" data-formset-prefix="{{ formset.prefix }}">
+    {{ formset.management_form }}
+
+    <div data-formset-body>
+        <!-- New forms will be inserted in here -->
+        {% for form in formset %}
+            <div class="row justify-content-center" data-formset-form style="width: 100%">
+                {% include 'generic/form.html' with col='col' %}
+
+                <div class="d-flex align-items-center">
+                    <button type="button" class="btn btn-sm btn-danger" data-formset-delete-button>
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- The empty form template. By wrapping this in a <script> tag, the
+    __prefix__ placeholder can easily be replaced in both attributes and
+    any scripts -->
+    <script type="form-template" data-formset-empty-form>
+        {% escapescript %}
+            <div class="row " data-formset-form style="width: 100%">
+
+                  {% include 'generic/form.html' with col='col ' form=formset.empty_form %}
+
+                 <div class="d-flex align-items-center">
+                    <button type="button" class="btn btn-sm btn-danger" data-formset-delete-button>
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+        {% endescapescript %}
+    </script>
+
+    <hr>
+    <div class="text-center">
+        <input type="button" class="btn btn-default" value="Adicionar" data-formset-add>
+    </div>
+
+</div>
+

@@ -1,0 +1,143 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <!-- Page content -->
+    <div class="container-fluid mt-4">
+        <div class="row">
+            <div class="col-xl-12 order-xl-1 mt--4">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card bg-gradient-info border-0">
+                            <!-- Card body -->
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="card bg-gradient-info border-0">
+                            <!-- Card body -->
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row align-items-center">
+                            <div class="col-12 d-flex justify-content-between">
+                                <h5 class="mb-0">Dados do Apartamento </h5>
+
+                                <a href="{% url 'apartment_update' apartment.id %}"
+                                   class="btn btn-sm btn-primary">Editar</a>
+                            </div>
+                            <div class="col-4 text-right">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="heading-small text-muted mb-4"></h6>
+                        <div class="pl-lg-4">
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-username">Apartamento</label>
+                                        <p>{{ apartment.number }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-email">Bloco</label>
+                                        <p>{{ apartment.block }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-username">
+                                            {% if apartment.owner == "LOCATARIO" %}Locatario{% else %}
+                                                Proprietario{% endif %}</label>
+                                        <p>{{ apartment.name }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-email">CPF</label>
+                                        <p>{{ apartment.cpf }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-first-name">Telefone</label>
+                                        <p>{{ apartment.phone }}</p>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-first-name">Email</label>
+                                        <p>{{ apartment.email }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-6">{% if apartment.square_meter != None %}
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-first-name">Medida (m2)</label>
+                                        <p>{{ apartment.square_meter }}</p>
+                                    </div>{% endif %}
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <label class="form-control-label" for="input-first-name">Porcentagem</label>
+                                        <p>{{ apartment.percent_meter }} %</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% if apartment.owner == "LOCATARIO" %}
+                    <div class="card mt-4">
+                    <div class="card-header">
+                        <div class="row align-items-center">
+                            <div class="col-12 d-flex justify-content-between">
+                                <h5 class="mb-0">Dados do Proprietario </h5>
+                            </div>
+                            <div class="col-4 text-right">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                    <h6 class="heading-small text-muted mb-4"></h6>
+                    <div class="pl-lg-4">
+                    <div class="row">
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="form-control-label" for="input-first-name">Nome do proprietario</label>
+                            <p>{{ apartment.owner_name }}</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="form-control-label" for="input-first-name">Telefone do proprietario</label>
+                            <p>{{ apartment.owner_phone }}</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="form-group">
+                            <label class="form-control-label" for="input-first-name">Email do proprietario</label>
+                            <p>{{ apartment.owner_email }}</p>
+                        </div>
+                    </div>
+                {% endif %}
+
+                </div>
+                </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+
+{% endblock content %}

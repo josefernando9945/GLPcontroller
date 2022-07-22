@@ -1,0 +1,225 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+    <!-- Header -->
+    <!-- Header -->
+
+    <!-- Page content -->
+    <div class="container-fluid mt-5">
+        {% include "includes/messages.html" %}
+        <!-- Table -->
+        <div class="d-block justify-content-between d-xl-flex justify-content-xl-between  align-content-center">
+            <h4 class="text-white d-flex justify-content-center ">Faturas de {{ current_month|date:"F \d\e Y" }}</h4>
+            <div class="dropdown d-flex justify-content-between d-xl-block">
+                <button class="btn btn-sm bg-white dropdown-toggle" type="button"
+                        id="dropdownMenuButton" data-bs-toggle="dropdown"
+                        aria-expanded="false">
+                    <i class="fas fa-calendar-alt "></i>
+                    {{ current_month|date:"F/Y" }}
+                </button>
+                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                    {% for month in months_for_filter %}
+                        <a class="dropdown-item"
+                           href="?month={{ month.due_date|date:'m/Y' }}">{{ month.due_date|date:"F/Y" }}</a>
+                    {% endfor %}
+
+                </div>
+                <a href="{% url 'invoice:generate_boleto_list' %}" class="btn btn-sm btn-success">Gerar Boleto</a>
+{#            <a href="{% url 'invoice:generate_pdf' %}" class="btn btn-sm btn-success">invoice pdf</a>#}
+{#            <a href="{% url 'invoice:boletoview' %}" class="btn btn-sm btn-success">gerar boleto sicred</a>#}
+{#            <a href="{% url 'invoice:merge_boleto_invoice' %}" class="btn btn-sm btn-success">mesclar boleto e invoice</a>#}
+            </div>
+        </div>
+        <div class="row">
+                {% for invoice in object_list %}
+                <div class="col-12 col-xl-6">
+                    <div class="card mb-4">
+                        <!-- Card header -->
+                        <div class="card-header">
+                            <div class="d-flex justify-content-between ">
+                                <h6 class="mb-0">{{ invoice.apartment }} </h6>
+                                <div class="d-flex justify-content-between">
+
+                                    <div>
+                                        {% if invoice.get_boleto %}
+                                            <a href="{{ invoice.get_boleto.pdf }}" target="_blank"
+                                               class="btn-link px-2">
+                                                <i class="fas fa-file-pdf text-secondary"></i>
+                                            </a>
+                                        {% endif %}
+                                        <span class="badge badge-sm {{ invoice.get_status_css_class }}" data-bs-toggle="tooltip"
+                                                data-bs-placement="top" title="{{ invoice.get_status_css_title }}">
+                                            {{ invoice.get_status_display }}
+                                        </span>
+                                    </div>
+
+
+                                    <div class="dropdown  ">
+                                        <button class="btn btn-sm btn-link px-3 py-0 m-0 " type="button"
+                                                id="dropdownMenu" data-bs-toggle="dropdown"
+                                                aria-expanded="false">
+                                            <i class="fas fa-cog text-dark"></i>
+
+                                        </button>
+                                        <ul class="dropdown-menu ">
+                                            <li><a class="dropdown-item-text bg-"
+                                                   href="{% url 'invoice:invoice_change_status' invoice.id %}">
+                                                <i class="fas fa-arrows-rotate "></i>
+                                                <span class="text-sm ">Alterar Status</span>
+                                            </a>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="d-flex justify-content-between mt-1">
+                                <span class="text-xs text-muted">
+                                    Vencimento: {{ invoice.due_date|date:"d/m/Y" }}
+                                </span>
+                                <span class="text-xs text-muted">
+                                    Fração: {{ invoice.apartment.percent_meter }}%
+                                </span>
+                            </div>
+                        </div>
+                        <div class="card-body">
+
+                            <div class="table-responsive py-4">
+                                <table class="table align-items-center table-flush ">
+
+                                    <tbody class="list">
+                                    {% for bca in invoice.billing_condo_apartment.all %}
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="d-flex justify-content-between">
+                                                <span class="text-sm">
+                                                {{ bca.billing_condo.get_category_display }}
+                                                </span>
+                                                    {% if bca.billing_condo.installments > 1 %}
+                                                        <span class="badge badge-default badge-pill badge-sm"> Parcela {{ bca.installment }}/{{ bca.billing_condo.installments }}</span>
+                                                    {% endif %}
+                                                </div>
+                                            </td>
+                                            <td class="text-sm">
+                                                R$ {{ bca.billing_condo.value }}
+                                            </td>
+                                            <td class="text-sm">
+                                                R$ {{ bca.value }}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="text-right text-sm">
+                                            <strong>Condomínio</strong>
+                                        </td>
+                                        <td class="text-sm">
+                                            <strong>R$ {{ invoice.total_invoice_condo }}</strong>
+                                        </td>
+                                    </tr>
+                                    {% for bai in invoice.billing_apartment_installment.all %}
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="d-flex justify-content-between text-sm">
+                                                    {{ bai.billing_apartment.description }}
+                                                    {% if bai.billing_apartment.installments > 1 %}
+                                                        <span class="badge badge-default badge-pill"> Parcela {{ bai.installment }}/{{ bai.billing_apartment.installments }}</span>
+                                                    {% endif %}
+                                                </div>
+                                            </td>
+                                            <td class="text-sm">
+                                                R$ {{ bai.billing_apartment.value }}
+                                            </td>
+                                            <td class="text-sm">
+                                                R$ {{ bai.value }}
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+
+                                    {% if invoice.billing_apartment_gas %}
+                                        <tr>
+                                            <td colspan="2">
+                                                <div class="row">
+                                                    <div class="col-3 text-center">
+                                                        <div class="text-xs">Leitura
+                                                            Anterior
+                                                        </div>
+                                                        <span class="text-sm">{{ invoice.billing_apartment_gas.previous_reading }}</span>
+                                                        <div class="text-xs text-muted ">
+                                                            {{ invoice.billing_apartment_gas.starts_date|date:"d-M-Y" }}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-3  text-center">
+                                                        <div class="text-xs">Leitura
+                                                            Atual
+                                                        </div>
+                                                        <span class="text-sm">{{ invoice.billing_apartment_gas.current_reading }}</span>
+                                                        <div class="text-xs text-muted ">
+                                                            {{ invoice.billing_apartment_gas.ends_date|date:"d-M-Y" }}
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="col-3 text-center">
+                                                        <div class="text-xs">Consumo
+                                                            m3
+                                                        </div>
+                                                        <span class="text-sm">
+                                                        {{ invoice.billing_apartment_gas.consumed }}</span>
+                                                    </div>
+                                                </div>
+
+                                            </td>
+                                            <td class="text-right">
+                                                <div class="d-flex justify-content-between">
+
+                                                    <strong class="text-sm">Gás</strong>
+                                                </div>
+
+                                            </td>
+                                            <td class="text-sm">
+                                                R$ {{ invoice.billing_apartment_gas.total }}</td>
+                                        </tr>
+                                    {% endif %}
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td class="text-right"><strong>Total</strong>
+                                        </td>
+                                        <td><strong>R$ {{ invoice.total }}</strong></td>
+
+                                    </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            {% empty %}
+                <div class="row my-5">
+                    <div class="col-12">
+                        <h6 class="text-center">Não há cobranças</h6>
+                        <h5 class="text-center mt-3">Crie sua primeira cobrança </h5>
+                    </div>
+                    <div class="col-12 text-center my-3">
+                        <a href="{% url 'billing:billing_condo_create' %}" class="btn btn-primary">Condominio</a>
+                        <a href="{% url 'billing:billing_apartment_create' %}" class="btn btn-primary">Apartamento</a>
+                        <a href="{% url 'billing:billing_apartment_gas_create' %}" class="btn btn-primary">Gás</a>
+                    </div>
+
+                    <a href=""></a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!-- Footer -->
+
+
+{% endblock content %}

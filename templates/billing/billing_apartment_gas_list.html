@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+    <!-- Page content -->
+    <div class="container-fluid mt-5">
+        {% include "includes/messages.html" %}
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <!-- Card header -->
+                    <div class="card-header d-flex justify-content-between">
+                        <h5 class="">Cobranças do Gás</h5>
+                         <div>
+                            <a href="{% url 'billing:billing_apartment_gas_create' %}"
+                            class="btn btn-sm btn-primary">Nova Cobrança</a>
+                         </div>
+                    </div>
+                    <div class=" table-responsive py-2 px-2">
+                        <table class="table align-items-center ">
+                            <thead class="thead-light">
+                            <tr>
+                                <th scope="col" class="px-1">Nome</th>
+                                <th scope="col" class="px-1">Leitura inicial</th>
+                                <th scope="col" class="px-1">Leitura atual</th>
+                                <th scope="col" class="px-1">Consumo</th>
+                                <th scope="col" class="px-1">Valor</th>
+                                <th scope="col" class="px-1">Criado em</th>
+                                <th scope="col" class="px-1"></th>
+                            </tr>
+                            </thead>
+                            <tbody class="list">
+                            {% for billing_gas in object_list %}
+                                <tr>
+                                    <td class="">
+                                        <a class="text-sm" href="{% url 'billing:billing_apartment_gas_detail' billing_gas.id %}">
+                                            {{ billing_gas }}
+                                        </a>
+                                    </td>
+                                    <td class="text-sm">
+                                        {{ billing_gas.starts_date|date:'d/m/Y' }}
+                                    </td>
+                                    <td class="text-sm">
+                                        {{ billing_gas.ends_date|date:'d/m/Y' }}
+                                    </td>
+                                    <td class="text-sm">
+                                        {{ billing_gas.consumed }}
+                                    </td>
+                                     <td class="text-sm">
+                                       R$ {{ billing_gas.total }}
+                                    </td>
+                                    <td class="text-sm">
+                                        {{ billing_gas.created_at|date:"d/m/Y \à\s H:i" }}
+                                    </td>
+
+                                    <td class="text-right ">
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm btn-link " type="button"
+                                                    id="dropdownMenu" data-bs-toggle="dropdown"
+                                                    aria-expanded="false">
+                                                <i class="fas fa-ellipsis-v text-dark"></i>
+
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item-text"
+                                                       href="{% url 'billing:billing_apartment_gas_update' billing_gas.id %}">
+                                                    <i class="fas fa-user text-primary "></i>
+                                                    <span class="text-sm ">Editar</span>
+                                                </a></li>
+
+                                                <li><a class="dropdown-item-text"
+                                                       href="{% url 'billing:billing_apartment_gas_delete' billing_gas.id %}">
+                                                    <i class="fas fa-trash text-danger "></i>
+                                                    <span class="text-sm ">Excluir</span>
+                                                </a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+
+
+{% endblock content %}
+

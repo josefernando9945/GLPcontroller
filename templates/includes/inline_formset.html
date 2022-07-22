@@ -1,0 +1,38 @@
+{% load i18n %}
+{% if formset %}
+    <div class="formset" name="objectivealternative_set" id="id_objectivealternative_set">
+        {{ formset.management_form }}
+        {% for form in formset %}
+            {% if form.non_field_errors %}
+                <div class="alert alert-warning" role="alert">
+                    {{ form.non_field_errors.as_text }}
+                </div>
+            {% endif %}
+            <div class="d-flex align-items-center">
+                {% for field in form %}
+                    <div>
+                        {% include "includes/field.html" %}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+    <button type="button" class="btn btn-primary btn-block" id="add_form_to_set">
+        {% trans 'Adicionar Alternativa' %}
+    </button>
+    <div id="empty_form" style="display:none">
+        <div class="d-flex align-items-center">
+            {{ formset.media }}
+            {% if formset.empty_form.non_field_errors %}
+                <div class="alert alert-warning" role="alert">
+                    {{ formset.empty_form.non_field_errors.as_text }}
+                </div>
+            {% endif %}
+
+            {% for field in formset.empty_form %}
+                {% include "includes/field.html" %}
+            {% endfor %}
+
+        </div>
+    </div>
+{% endif %}

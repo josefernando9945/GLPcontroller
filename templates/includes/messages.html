@@ -1,0 +1,7 @@
+{% if messages %}
+    {% for message in messages %}
+        <div class="text-white alert alert-{% if message.tags == "error" %}danger{% else %}success{% endif %}" role="alert">
+            <i class="fas fa-check-circle text-white text-sm opacity-10"></i> {{ message }}
+        </div>
+    {% endfor %}
+{% endif %}

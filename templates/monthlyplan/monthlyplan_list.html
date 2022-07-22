@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+
+    <!-- Page content -->
+    <div class="container-fluid mt-5">
+        <div class="row">
+            <div class="col-12 col-xl-4 order-xl-2 mb-3">
+
+                <!-- Progress track -->
+                  {% include "condo/includes/sidebar_settings.html" %}
+            </div>
+            <div class="col-12 col-xl-8 order-xl-1">
+                <div class="card">
+                            <div class="card-header d-inline-flex justify-content-between">
+                                <h5 class="mb-0">Lista de Planos dos Condominios</h5>
+                            </div>
+                    <div class="table-responsive py-4">
+                        <table class="table align-items-center table-flush">
+                            <thead class="thead-light">
+                            <tr class="text-sm">
+                                <th class="col">Condominio</th>
+                                <th class="col">Valor</th>
+                                <th class="col">Ultima Atualização</th>
+                                <th class="col">Data de Criação</th>
+                                <th class="col"></th>
+                            </tr>
+                            </thead>
+                            <tbody class="list">
+                             {% for object in object_list %}
+                                <tr class="text-sm">
+                                    <td class="text-primary font-weight-bold">
+                                        <a href="">
+                                            {{ object.condo }}
+                                        </a>
+                                    </td>
+                                    <td class="font-weight-bold">
+                                        {{ object.value_monthly_plan }}
+                                    </td>
+                                    <td class="text-center">
+                                        {{ object.updated_at|date:'d/m/Y' }}
+                                    </td>
+                                    <td class="text-center">
+                                        {{ object.created_at|date:'d/m/Y' }}
+                                    </td>
+
+                                   <td class="text-right d-flex justify-content-center">
+                                    <div class="dropdown">
+                                        <button class="btn btn-sm btn-link " type="button"
+                                                id="dropdownMenu" data-bs-toggle="dropdown"
+                                                aria-expanded="false">
+                                            <i class="fas fa-ellipsis-v text-dark"></i>
+
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item-text"
+                                                   href="{% url 'update_monthlyplan' %}">
+                                                <i class="fas fa-user text-primary "></i>
+                                                <span class="text-sm ">Editar</span>
+                                            </a></li>
+
+{#                                            <li><a class="dropdown-item-text"#}
+{#                                                   href="">#}
+{#                                                <i class="fas fa-trash text-danger "></i>#}
+{#                                                <span class="text-sm ">Excluir</span>#}
+{#                                            </a></li>#}
+                                        </ul>
+                                    </div>
+                                </td>
+                                </tr>
+
+                            {% endfor %}
+                            <tr>
+
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+    <!-- Footer -->
+{% endblock %}
+
+{% block extra_script %}
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#id_phone').mask("(00) 00000-0000");
+            $('#id_birthday').mask("00/00/0000");
+            $('#id_cep').mask("00000-000");
+        });
+    </script>
+{% endblock extra_script %}
+

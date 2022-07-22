@@ -1,0 +1,137 @@
+{% extends 'base1.html' %}
+
+{% block breadcrumb %}
+    <h5 class="h2 text-white d-inline-block mb-0">Lista de usuarios</h5>
+    <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+
+    </nav>
+{% endblock %}
+{% block content %}
+
+    <div class="container-fluid mt--5">
+        <div class="row">
+            <div class="col">
+                 <div class="d-flex justify-content-end mb-2">
+                    <a href="{% url 'create_bill_to_pay' %}" class="btn btn-outline-neutral btn-sm">
+                        <i class="fas fa-plus"></i> Cadastrar Conta
+                    </a>
+                </div>
+                <div class="card">
+                    <div class="table-responsive text-center">
+                        <table class="table align-items-center table-flush ">
+                            <thead class="thead-light">
+                            <tr>
+                                <th class="col">Orden</th>
+                                <th class="col">Status</th>
+                                <th class="col">Valor</th>
+                                <th class="col">Vencimento em</th>
+                                <th class="col">Pago em</th>
+                                <th class="col">Descrição</th>
+                                <th class="col">Condominio</th>
+
+                                <th scope="col"></th>
+                            </tr>
+                            </thead>
+                            <tbody class="list">
+                            {% for billtopay in object_list %}
+                                <tr>
+                                    <th scope="row">
+                                        <div class="media align-items-center">
+
+                                            <div class="media-body">
+                                                    <span class="name mb-0 text-sm">
+                                                        <a href="{% url 'profile_bill_to_pay' billtopay.id %}">
+                                                            {{ billtopay.account_payment}}
+                                                        </a>
+                                                    </span>
+                                            </div>
+                                        </div>
+                                    </th>
+                                    <td><a href="{% url 'payment_bill_to_pay' billtopay.id %}">
+                                     <span
+                                          class="badge {% if billtopay.status %} badge-success {% else %} badge-danger {% endif %} ">
+
+                                         {% if billtopay.status %}
+                                             <i class="fa fa-check-circle"></i>
+                                        Pago ! </span>
+                                         {% else %}
+                                              <i class="fa fa-exclamation-circle"></i>
+                                         Pendente !</a>
+                                    </td>{% endif %}
+                                    <td>
+                                        {{ billtopay.value }}
+                                    </td>
+                                    <td>
+                                        {{ billtopay.due_date|date:'d/m/Y'}}
+                                    </td>
+                                    <td>
+                                        {{ billtopay.payment_date|date:'d/m/Y' }}
+                                    </td>
+                                    <td>
+                                        {{ billtopay.description}}
+                                    </td>
+                                     <td>
+                                         <strong>
+                                        {{ billtopay.condominium.name}}</strong>
+                                    </td>
+                                    <td class="text-right border">
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm btn-icon-only" type="button"
+                                                    id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
+                                                    aria-expanded="false">
+                                                <i class="fas fa-ellipsis-v text-dark"></i>
+
+                                            </button>
+                                            <div class="dropdown-menu ml--5">
+                                                                              <a class="dropdown-item-text" href="{% url 'update_bill_to_pay' billtopay.id %}">
+                                                <i class="fas fa-user text-secondary text-sm "></i>
+                                                                                    <span  class="text-sm ">Editar</span>
+                                                </a>
+
+                                                                              <a class="dropdown-item-text" href="{% url 'delete_bill_to_pay' billtopay.id %}">
+                                                <i class="fas fa-trash text-danger "></i>
+                                                                                   <span class="text-sm ">Excluir</span>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <i class="fas fa-ellipsis-vertical"></i>
+                                    </td>
+                                </tr>
+
+                            {% endfor %}
+                              <tr>
+                                  <td>
+                                       {{ 'Valor Total' }}
+                                  </td>
+                                  <td>
+                                       {{ billtopay.value__sum }}
+                                  </td>
+                                  <td>
+
+                                  </td>
+                                  <td></td>
+                                  <td></td>
+                                  <td></td>
+                                   <td></td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    {% include "includes/paginate.html" %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block extra_script %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#id_phone').mask("(00) 00000-0000");
+            $('#id_payment_date').mask("00/00/0000");
+            $('#id_due_date').mask("00/00/0000");
+        });
+    </script>
+{% endblock extra_script %}

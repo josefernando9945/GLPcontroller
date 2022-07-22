@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+    <!-- Header -->
+    <!-- Header -->
+    <div class="header bg-primary pb-6">
+        <div class="container-fluid">
+            <div class="header-body">
+                <div class="row align-items-center py-4">
+                    <div class="col-xl-6 col-12">
+                        <h6 class="h2 text-white d-inline-block mb-0">Condominio</h6>
+                        <nav aria-label="breadcrumb" class="d-none d-md-inline-block ml-md-4">
+                            <ol class="breadcrumb breadcrumb-links breadcrumb-dark">
+                                <li class="breadcrumb-item"><a href="#"><i class="fas fa-home"></i></a></li>
+                                <li class="breadcrumb-item"><a href="#">{{ condo }}</a></li>
+                                <li class="breadcrumb-item active" aria-current="page">Configurações</li>
+                            </ol>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--4">
+        <!-- Table -->
+        <div class="row">
+            <div class="col-8 mx-auto">
+                <div class="card">
+                    <!-- Card header -->
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-6">
+                                <h5 class="mb-0">Configurações do Condominio</h5>
+                            </div>
+                        </div>
+
+                    </div>
+                <div>
+                    <table class="table align-items-center text-center table-flush">
+                        <thead class="thead-light">
+                        </thead>
+                        <tbody class="list">
+                        <tr>
+                            <td>
+                                <div class="media align-items-center">
+
+                                    <div class="media-body">
+                                            <span class="name mb-0 text-sm">
+                                                <a href="{% url 'update_condo' condo.id %}">
+                                                    Editar Condominio
+                                                </a>
+                                            </span>
+                                    </div>
+                                </div>
+                            </td>
+                            </tr>
+                        <tr>
+                            <td>
+                                <div class="media align-items-center">
+
+                                    <div class="media-body">
+                                            <span class="name mb-0 text-sm">
+                                                <a href="{% url 'expiration_day_apart_condo' condo.id %}">
+                                                    Editar Vencimento do Condominio
+                                                </a>
+                                            </span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="media align-items-center">
+
+                                    <div class="media-body">
+                                            <span class="name mb-0 text-sm">
+                                                <a href="{% url 'list_account_bank' %}">
+                                                    Editar Dados Bancarios
+                                                </a>
+                                            </span>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            {% if request.user.is_superuser %}
+                                <td>
+                                    <div class="media align-items-center">
+
+                                        <div class="media-body">
+                                            <span class="name mb-0 text-sm">
+                                                <a href="{% url 'list_monthlyplan' %}">
+                                                    Editar Valor do Condominio
+                                                </a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td></td>
+                                <td></td>
+                                </tr>
+                            {% endif %}
+                        </tbody>
+                    </table>
+                    </div>
+                    <div class="card-footer py-4">
+                        <nav aria-label="...">
+                            <ul class="pagination justify-content-end mb-0">
+
+                                {% for num in paginator.page_range %}
+                                    <li class="page-item active">
+                                        <a class="page-link" href="?page={{ num }}" data-page="1">{{ num }}</a>
+                                    </li>
+                                {% endfor %}
+                                {% if page_obj.has_next %}
+
+                                    <li class="page-item">
+                                        <a class="page-link" href="?page={{ page_obj.next_page_number }}" data-page="2">
+                                            <i class="fas fa-angle-right"></i>
+                                            <span class="sr-only">Next</span>
+                                        </a>
+                                    </li>
+                                {% endif %}
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+
+
+{% endblock content %}
+

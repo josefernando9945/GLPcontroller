@@ -1,0 +1,157 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <!-- Main content -->
+  <div class="main-content" id="panel">
+    <!-- Topnav -->
+
+    <!-- Header -->
+    <!-- Header -->
+    <div class="header pb-6 d-flex align-items-center" style="min-height: 500px; background-image:{{ user.profile_picture_url }}; background-size: cover; background-position: center top;">
+      <!-- Mask -->
+      <span class="mask bg-gradient-default opacity-8"></span>
+      <!-- Header container -->
+      <div class="container-fluid d-flex align-items-center">
+        <div class="row">
+          <div class="col-lg-7 col-md-10">
+            <h1 class="display-2 text-white">Condominio</h1><H1 class="display-2 text-white ml-5 mt--4">{{ condominium.name }}</H1>
+            <p class="text-white mt-0 mb-5"></p>
+            <a href="{% url 'update_condominium' condominium.id %}" class="btn btn-neutral" style="width: 10em">Editar perfil</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Page content -->
+    <div class="container-fluid mt--6 ml-7">
+      <div class="row">
+        <div class="col-xl-10 order-xl-1 align-items-center">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="card bg-gradient-info border-0">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0 text-white">Total a Pagar</h5>
+                      <span class="h2 font-weight-bold mb-0 text-white">350,897</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-white text-dark rounded-circle shadow">
+                        <i class="ni ni-active-40"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                    <span class="text-white mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
+                    <span class="text-nowrap text-light">Since last month</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="card bg-gradient-danger border-0">
+                <!-- Card body -->
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col">
+                      <h5 class="card-title text-uppercase text-muted mb-0 text-white">Total Pago</h5>
+                      <span class="h2 font-weight-bold mb-0 text-white">49,65%</span>
+                    </div>
+                    <div class="col-auto">
+                      <div class="icon icon-shape bg-white text-dark rounded-circle shadow">
+                        <i class="ni ni-spaceship"></i>
+                      </div>
+                    </div>
+                  </div>
+                  <p class="mt-3 mb-0 text-sm">
+                    <span class="text-white mr-2"><i class="fa fa-arrow-up"></i> 3.48%</span>
+                    <span class="text-nowrap text-light">Since last month</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header">
+              <div class="row align-items-center">
+                <div class="col-8">
+                  <h5 class="mb-0">Perfil do Condominio </h5>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+              <form>
+                <h6 class="heading-small text-muted mb-4">Condominio</h6>
+                <div class="pl-lg-4">
+                    <div class="row">
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-first-name">Nome</label>
+                        <input type="text" id="input-first-name" class="form-control" placeholder="First name" value="{{ condominium.name }}">
+                      </div>
+                    </div>
+                    <div class="col-lg-6">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-last-name">Area Construida</label>
+                        <input type="text" id="input-last-name" class="form-control" placeholder="Last name" value="{{ condominium.building }}">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="my-4" />
+                <!-- Address -->
+                <h6 class="heading-small text-muted mb-4">Endereço</h6>
+                <div class="pl-lg-4">
+                  <div class="row">
+                    <div class="col-md-9">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-address">Rua</label>
+                        <input id="input-address" class="form-control" placeholder="Endereço" value="{{ condominium.street}}" type="text">
+                      </div>
+                    </div>
+                      <div class="col-md-3">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-number">Numero</label>
+                        <input id="input-number" class="form-control" placeholder="Numero" value="{{ condominium.number}}" type="text">
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-city">Bairro</label>
+                        <input type="text" id="input-city" class="form-control" placeholder="Bairro" value="{{ condominium.district }}">
+                      </div>
+                    </div>
+                    <div class="col-lg-4">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-country">Cidade</label>
+                        <input type="text" id="input-country" class="form-control" placeholder="Cidade" value="{{ condominium.city }}">
+                      </div>
+                    </div>
+                      <div class="col-lg-4">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-country">Estado</label>
+                        <input type="text" id="input-country" class="form-control" placeholder="Estado" value="{{ condominium.state }}">
+                      </div>
+                    </div>
+                       <div class="col-lg-4">
+                      <div class="form-group">
+                        <label class="form-control-label" for="input-country">Cep</label>
+                        <input type="text" id="input-postal-code" class="form-control" placeholder="Cep" value="{{ condominium.cep }}">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="my-4" />
+
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      </div>
+      <!-- Footer -->
+     {% endblock content %}

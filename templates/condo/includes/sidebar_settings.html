@@ -1,0 +1,60 @@
+<div class="card">
+    <!-- Card header -->
+    <div class="card-header">
+        <!-- Title -->
+        <h5 class="h5 mb-0">Configurações</h5>
+    </div>
+    <!-- Card body -->
+    <div class="card-body">
+        <!-- List group -->
+        <ul class="list-group list-group-flush list my--3">
+            <li class="list-group-item px-0">
+                <div class="media-body">
+<span class="name mb-0 text-sm">
+<a href="{% url 'settings_condo' %}">
+Dados do Condomínio
+</a>
+</span>
+                </div>
+            </li>
+            <li class="list-group-item px-0">
+                <div class="media-body">
+<span class="name mb-0 text-sm">
+<a href="{% url 'expiration_day_apart_condo' %}">
+Data de Vencimento do Condominio
+</a>
+</span>
+                </div>
+            </li>
+            <li class="list-group-item px-0">
+                <div class="media-body">
+<span class="name mb-0 text-sm">
+<a href="{% url 'update_value_gas_condo' %}">
+Valor do Gas (m³)
+</a>
+</span>
+                </div>
+            </li>
+            <li class="list-group-item px-0">
+                <div class="media-body">
+<span class="name mb-0 text-sm">
+<a href="{% url 'create_account_bank' %}">
+Dados Bancários
+</a>
+</span>
+                </div>
+            </li>{% if request.user.is_superuser %}
+            <li class="list-group-item px-0">
+                <div class="media-body">
+<span class="name mb-0 text-sm">
+<a href="{% url 'list_monthlyplan' %}">
+Mensalidade do Plano
+</a>
+</span>
+                </div>
+            </li>{% endif %}
+
+
+        </ul>
+    </div>
+</div>

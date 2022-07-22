@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <!-- Main content -->
+    <div class="main-content" id="panel">
+
+        <!-- Header -->
+        <!-- Header -->
+
+        <!-- Page content -->
+        <div class="container-fluid mt-6 ml-7">
+            <div class="row">
+                <div class="col-xl-10 order-xl-1">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row align-items-center">
+                                <div class="col-8">
+                                    <h3 class="mb-0">Adicionar Usuario </h3>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <form method="post" action="." enctype="multipart/form-data" class="">
+                                {% csrf_token %}
+                                {{ form.password.errors }}
+                                {{ form.confirm_password.errors}}
+                                {% include "includes/form.html" %}
+                                {% include "includes/form.html" with form=formapartment%}
+                                <div class="row">
+                                    <div class="col-12 text-right">
+                                        <button type="submit" class="btn btn-primary">Salvar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+
+{% endblock content %}
+
+{% block extra_script %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#id_phone').mask("(00) 00000-0000");
+            $('#id_birthday').mask("00/00/0000");
+            $('#id_cep').mask("00000-000");
+        });
+    </script>
+{% endblock extra_script %}
+

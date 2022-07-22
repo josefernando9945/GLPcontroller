@@ -1,0 +1,109 @@
+{% extends 'base.html' %}
+{% block sidebar %}{% endblock %}
+{% block navbar %}{% endblock %}
+{% block content %}
+
+
+    <main class="main-content main-content-bg mt-0">
+        <div class="page-header min-vh-100"
+             style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signin-basic.jpg');">
+            <span class="mask bg-gradient-dark opacity-6"></span>
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-lg-4 col-md-7">
+                        <div class="card border-0 mb-0">
+                            <div class="card-header bg-transparent">
+                                <h5 class="text-dark text-center mt-2 mb-3">Bem vindo!</h5>
+
+                            </div>
+                            <div class="card-body px-lg-5 pt-0">
+
+                                <form role="form" action="{% url 'login' %}" method="POST" class="text-start">
+                                    {% csrf_token %}
+                                    <div class="mb-3">
+                                        {% include 'includes/field.html' with field=form.username %}
+                                    </div>
+                                    <div class="mb-3">
+                                        {% include 'includes/field.html' with field=form.password %}
+                                    </div>
+                                    <div class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="rememberMe">
+                                        <label class="form-check-label" for="rememberMe">Lembrar</label>
+                                    </div>
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-primary w-100 my-4 mb-2">Entrar</button>
+                                    </div>
+
+                                </form>
+                                <div class=" col-12 mt-1 d-flex justify-content-between">
+                            <div class="col-6 text-right d-flex justify-content-sm-start">
+                                <a href="{% url 'reset' %}" class="text-black-50"><small>Recuperar Senha</small></a>
+                            </div>
+                            <div class="col-6 text-right d-flex justify-content-end">
+                                <a href="{% url 'create' %}" class="text-black-50"><small>Criar uma Conta</small></a>
+                            </div>
+                        </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer class="footer py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mb-4 mx-auto text-center">
+                    <a href="{% url 'politicas-de-privacidade' %}" target="_blank"
+                       class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
+                        Politicas de Privacidade
+                    </a>
+                    <a href="{% url 'termos-de-uso' %}" target="_blank"
+                       class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">
+                        Termos de Uso
+                    </a>
+                    {#          <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">#}
+                    {#            Team#}
+                    {#          </a>#}
+                    {#          <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">#}
+                    {#            Products#}
+                    {#          </a>#}
+                    {#          <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">#}
+                    {#            Blog#}
+                    {#          </a>#}
+                    {#          <a href="javascript:;" target="_blank" class="text-secondary me-xl-5 me-3 mb-sm-0 mb-2">#}
+                    {#            Pricing#}
+                    {#          </a>#}
+                </div>
+                {#        <div class="col-lg-8 mx-auto text-center mb-4 mt-2">#}
+                {#          <a href="javascript:;" target="_blank" class="text-secondary me-xl-4 me-4">#}
+                {#            <span class="text-lg fab fa-dribbble"></span>#}
+                {#          </a>#}
+                {#          <a href="javascript:;" target="_blank" class="text-secondary me-xl-4 me-4">#}
+                {#            <span class="text-lg fab fa-twitter"></span>#}
+                {#          </a>#}
+                {#          <a href="javascript:;" target="_blank" class="text-secondary me-xl-4 me-4">#}
+                {#            <span class="text-lg fab fa-instagram"></span>#}
+                {#          </a>#}
+                {#          <a href="javascript:;" target="_blank" class="text-secondary me-xl-4 me-4">#}
+                {#            <span class="text-lg fab fa-pinterest"></span>#}
+                {#          </a>#}
+                {#          <a href="javascript:;" target="_blank" class="text-secondary me-xl-4 me-4">#}
+                {#            <span class="text-lg fab fa-github"></span>#}
+                {#          </a>#}
+                {#        </div>#}
+                {#      </div>#}
+                <div class="row">
+                    <div class="col-8 mx-auto text-center mt-1">
+                        <p class="mb-0 text-secondary">
+                            Copyright © 2022 Bloco B3.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+{% endblock content %}
+{% block footer %}{% endblock %}

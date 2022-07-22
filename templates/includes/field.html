@@ -1,0 +1,133 @@
+{% load  widget_tweaks i18n model_object_extras utils %}
+
+{% if not field_type %}
+    {% define field|field_type as field_type %}
+{% endif %}
+
+{% if not field_type == 'HiddenInput' %}
+    <div id="form-group-{{ field.name }}"
+         class="form-group {% if col %}{{ col }}{% endif %} mb-3"
+         data-field="{{ field.name }}"
+            {% if field.name == 'DELETE' %}
+         style="align-items: center; display: none;"
+            {% endif %}>
+{% endif %}
+
+{% if field_type == 'HiddenInput' %}
+    {{ field }}
+
+{% elif field_type == 'ClearableFileInput' %}
+    <label for="{{ field.auto_id }}">
+        <span class="text-muted">{{ field.label|safe }}</span>
+    </label>
+    {% with "placeholder:"|add:field.label as placeholder %}
+        {{ field|add_class:"form-control"|attr:placeholder }}
+    {% endwith %}
+
+{% elif field_type == 'ProfilePictureInput' %}
+    <label for="{{ field.auto_id }}">
+        <span class="text-muted">{{ field.label|safe }}</span>
+    </label>
+    {{ field }}
+
+{% elif field_type == 'CheckboxInput' %}
+    {% if render_type == 'checkbox-icon' %}
+        <div class=" d-flex justify-content-end align-items-center align-content-center">
+            {{ field|add_class:'checkbox-icon d-none' }}
+            {% if not hidden_label %}
+                <label class=" d-block mt-2" style="cursor: pointer;" for="{{ field.auto_id }}">
+                    <i class="far fa-check-circle text-xl text-muted choice-icon opacity-2"
+                       style="font-size: 2rem!important;"></i>
+                    <i class="fas fa-check-circle text-xl text-success choice-icon-correct d-none"
+                       style="font-size: 2rem!important;"></i>
+                </label>
+            {% endif %}
+        </div>
+    {% else %}
+        <div class="custom-control custom-control-alternative custom-checkbox pt-4">
+            {{ field|add_class:'custom-control-input' }}
+            {% if not hidden_label %}
+                <label class="custom-control-label" for="{{ field.auto_id }}">
+                <span class="text-muted">
+                    {{ field.label|safe }}
+                </span>
+                </label>
+            {% endif %}
+        </div>
+    {% endif %}
+{% elif field_type == "CheckboxSelectMultiple" %}
+    <div class="row">
+        <label class="control-label text-sm col-12" for="">
+            {% if not hidden_text_label %}
+                {{ field.label }}
+            {% endif %}
+        </label>
+        <div class="col-12">
+            <div class="row pl-3">
+                {% for f in field %}
+                    <div class="custom-control custom-control-alternative custom-checkbox
+                            {% if col_child %}{{ col_child }}{% else %}col{% endif %}">
+                        {{ f.tag }}
+                        {% if not hidden_label %}
+                            <label class="custom-control-label" for="{{ f.id_for_label }}">
+                                <span class="text-muted">{{ f.choice_label|safe }}</span>
+                            </label>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% else %}
+    {% if field.html_name == "passwordx" or field.html_name == "password_confirmx" or  field.html_name == "email" %}
+        <div style="font-size: 0.90em">{{ field.label|safe }}</div>
+        {% if field.html_name == "password" or field.html_name == "password_confirm" %}
+
+             <div class="input-group input-group-merge">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="ni ni-lock-circle-open"></i></span>
+                </div>
+                {% with "placeholder:"|add:field.label as placeholder %}
+                    {{ field|add_class:"form-control"|attr:placeholder }}
+                {% endwith %}
+            </div>
+        {% elif field.html_name == "email" or field.html_name == "username"  %}
+
+            <div class="input-group input-group-merge">
+
+                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+
+                {% with "placeholder:"|add:field.label as placeholder %}
+                    {{ field|add_class:"form-control"|attr:placeholder }}
+                {% endwith %}
+            </div>
+
+
+        {% endif %}
+
+    {% elif render_type == 'text-outline' %}
+        {% with "placeholder:"|add:field.label as placeholder %}
+            {{ field|add_class:"form-control form-control-outline"|attr:placeholder }}
+        {% endwith %}
+    {% else %}
+        <label class="control-label text-sm" for="id_{{ field.name }}">
+            {{ field.label }} {% if field.field.required %}*{% endif %}
+        </label>
+        {% with "placeholder:"|add:field.label as placeholder %}
+            {{ field|add_class:"form-control"|attr:placeholder }}
+        {% endwith %}
+    {% endif %}
+    {% if field.help_text and field_type == 'Select' or field_type == 'SelectMultiple' %}
+        <small id="help_{{ field.name }}" class="form-text text-muted text-light">{{ field.help_text|safe }}</small>
+    {% endif %}
+{% endif %}
+
+{% if field.errors %}
+    <div class="control-label text-danger small">
+        {{ field.errors.as_text }}
+    </div>
+{% endif %}
+
+{% if not field_type == 'HiddenInput' %}
+    </div>
+{% endif %}

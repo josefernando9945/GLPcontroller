@@ -1,0 +1,133 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <!-- Main content -->
+    <div class="main-content" id="panel">
+        {% include "includes/messages.html" %}
+        <!-- Header -->
+        <!-- Header -->
+
+        <!-- Page content -->
+        <div class="container-fluid mt-5 ml-7">
+            <div class="row">
+                <div class="col-xl-10 order-xl-1">
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="row align-items-center">
+                                <div class="col-8">
+                                    <h5 class="mb-0">Adicionar Condominio </h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body">
+                            <form method="post" action="." enctype="multipart/form-data" class="">
+                                {% csrf_token %}
+                                {{ form.errors }}
+                                <h6 class="heading-small text-muted mb-4">Condominio</h6>
+                                <div class="pl-lg-4">
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-name">Nome</label>
+                                                {{ form.name }}
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-last-name">Area
+                                                    Construida</label>
+                                                {{ form.cnpj }}
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-last-name">Area
+                                                    Construida</label>
+                                                {{ form.building }}
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6">
+                                            <div class="form-group">
+                                                <label class="form-control-label" for="input-last-name">Foto</label>
+                                                {{ form.picture }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="my-4"/>
+                                <!-- Address -->
+                                <h6 class="heading-small text-muted mb-4">Endereço</h6>
+                                <div class="pl-lg-4">
+                                    <div class="row">
+                                        <div class="row">
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label class="form-control-label" for="">Rua</label>
+                                                    {{ form.street }}
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label class="form-control-label" for="requered">Numero</label>
+                                                    {{ form.number }}
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label class="form-control-label" for="input-email">Bairro</label>
+                                                    {{ form.district }}
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label class="form-control-label" for="input">Cidade</label>
+                                                    {{ form.city }}
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label class="form-control-label" for="input">Estado</label>
+                                                    {{ form.state }}
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <div class="form-group">
+                                                    <label class="form-control-label" for="input">CEP</label>
+                                                    {{ form.cep }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="my-4"/>
+                                <div class="row align-items-center">
+                                    <div class="">
+                                        <h5 class="mb-0"></h5>
+                                    </div>
+                                    <div class="col-4 order-xl-1">
+                                        <button type="submit" class="btn btn-primary">Salvar</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+
+{% endblock content %}
+
+{% block extra_script %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#id_phone').mask("(00) 00000-0000");
+            $('#id_birthday').mask("00/00/0000");
+            $('#id_cep').mask("00000-000");
+        });
+    </script>
+{% endblock extra_script %}
+

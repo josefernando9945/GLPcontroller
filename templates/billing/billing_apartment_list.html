@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+
+    <!-- Page content -->
+    <div class="container-fluid mt-5">
+        {% include "includes/messages.html" %}
+        <div class="row">
+            <div class="col">
+                <div class="card">
+                    <!-- Card header -->
+                    <div class="card-header d-flex justify-content-between">
+                        <h5 class="">Cobranças dos Apartamentos</h5>
+                         <div>
+                            <a href="{% url 'billing:billing_apartment_create' %}"
+                            class="btn btn-sm btn-primary">Nova Cobrança</a>
+                         </div>
+                    </div>
+                    <div class=" table-responsive py-2 px-2">
+                        <table class="table align-items-center ">
+                            <thead class="thead-light">
+                            <tr>
+                                <th scope="col" class="px-1">Nome</th>
+                                <th scope="col" class="px-1">Descrição</th>
+                                <th scope="col" class="px-1">Valor</th>
+                                <th scope="col" class="px-1">Parcelas</th>
+                                <th scope="col" class="px-1"></th>
+                            </tr>
+                            </thead>
+                            <tbody class="list">
+                            {% for billing_apartment in object_list %}
+                                <tr>
+                                    <td>
+                                        <a class="btn-link text-sm" href="{% url 'billing:billing_apartment_detail' billing_apartment.id %}">
+                                            {{ billing_apartment.apartment }}
+                                        </a>
+                                    </td>
+                                    <td class="text-sm">
+                                        {{ billing_apartment }}
+                                    </td>
+                                    <td class="text-sm">
+                                        {{ billing_apartment.value }}
+                                    </td>
+                                    <td class="">
+                                        <span class="badge badge-info badge-sm">
+                                            {{ billing_apartment.get_installments_display }}
+                                        </span>
+
+                                    </td>
+                                    <td class="text-right ">
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm btn-link " type="button"
+                                                    id="dropdownMenu" data-bs-toggle="dropdown"
+                                                    aria-expanded="false">
+                                                <i class="fas fa-ellipsis-v text-dark"></i>
+
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item-text"
+                                                       href="{% url 'billing:billing_apartment_update' billing_apartment.id %}">
+                                                    <i class="fas fa-user text-primary "></i>
+                                                    <span class="text-sm ">Editar</span>
+                                                </a></li>
+
+                                                <li><a class="dropdown-item-text"
+                                                       href="{% url 'billing:billing_apartment_delete' billing_apartment.id %}">
+                                                    <i class="fas fa-trash text-danger "></i>
+                                                    <span class="text-sm ">Excluir</span>
+                                                </a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+
+                            {% endfor %}
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+
+
+{% endblock content %}
+

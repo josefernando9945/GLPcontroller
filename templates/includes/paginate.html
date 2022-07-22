@@ -1,0 +1,54 @@
+{% load i18n %}
+{% if is_paginated %}
+    <div class="card-footer mb-5 text-center">
+        <nav aria-label="...">
+
+            <ul class="pagination justify-content-center mb-0 flex-wrap">
+                {% if page_obj.number != 1 %}
+                    <li class="page-item ">
+                        <a class="page-link" href="?page=1" tabindex="-1">
+                            <i class="fas fa-angle-left"></i>
+                            <i class="fas fa-angle-left"></i>
+                            <span class="sr-only">{% trans "Previous" %}</span>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if page_obj.has_previous %}
+                    <li class="page-item ">
+                        <a class="page-link" href="?page=
+                                {{ page_obj.previous_page_number }}{% if request.GET.sorted %}&sorted={{ request.GET.sorted }}{% endif %}"
+                           tabindex="-1">
+                            <i class="fas fa-angle-left"></i>
+                            <span class="sr-only">{% trans "Previous" %}</span>
+                        </a>
+                    </li>
+                {% endif %}
+                {% for page in page_obj.paginator.page_range %}
+                    <li class="page-item {% if page == page_obj.number %}active{% endif %}">
+                        <a class="page-link" href="?page=
+                                {{ page }}{% if request.GET.sorted %}&sorted={{ request.GET.sorted }}{% endif %}">{{ page }}</a>
+                    </li>
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=
+                                {{ page_obj.next_page_number }}{% if request.GET.sorted %}&sorted={{ request.GET.sorted }}{% endif %}">
+                            <i class="fas fa-angle-right"></i>
+                            <span class="sr-only">{% trans "Next" %}</span>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if  page_obj.number != page_obj.paginator.num_pages %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page=
+                                {{ page_obj.paginator.num_pages }}{% if request.GET.sorted %}&sorted={{ request.GET.sorted }}{% endif %}">
+                            <i class="fas fa-angle-right"></i>
+                            <i class="fas fa-angle-right"></i>
+                            <span class="sr-only">{% trans "Next" %}</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+{% endif %}

@@ -25,6 +25,8 @@ class ListEmployeeView(ListView):
     def get_queryset(self):
         result = super(ListEmployeeView, self).get_queryset()
         query = self.request.GET.get('search')
+        if query:
+            result = Employee.objects.filter(first_name__contains=query)
 
         return result
 

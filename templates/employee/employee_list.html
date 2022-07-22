@@ -17,26 +17,14 @@
                         <h3 class="mb-0">Lista de Funcionarios</h3>
                          <div class="col-lg-6 col-5 text-right">
                         <a href="{% url 'create_employee' %}" class="btn btn-sm btn-success">Cadrastar Funcionario</a>
-                             <a class="dropdown">
-                                 <button class="btn btn-sm btn-success" type="button" id="" data-bs-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
-                                                Filtrar
-
-                                            </button><ul class="dropdown-menu">
-                                 <form class="navbar-search navbar-search-light form-inline" id="navbar-search-main">
-
-              <div class="input-group input-group-alternative ">
-
-                  <span class="input-group-text"><i class="fas fa-search"></i></span>
-
-                <input class="form-control" placeholder="Search" type="text" name="search">
-              </div>
-          </form>
-                                            </ul>
-                                        </a>
-
+                             <div class="input-group d-flex justify-content-end mx-2">
+                                 <form action="" type="submit">
+                                     <input class="form-control" name="search" placeholder="Buscar" type="text">
+                                 </form>
+                             </div></a>
                     </div>
                     </div>
-                    <div class="table-responsive py-4 px-4">
+                      <div class="table-responsive py-4 px-4">
                         <table class="table align-items-center table-flush">
                             <thead class="thead-light">
                             <tr>

@@ -11,7 +11,7 @@ from controller.models import Company
 
 
 class LoginUserView(LoginView):
-    template_name = 'login.html'
+    template_name = 'user/login.html'
 
     def get_success_url(self):
         if not Company.objects.filter(user=self.request.user).exists():
@@ -23,11 +23,11 @@ class LoginUserView(LoginView):
 
 
 class LogoutUserView(LogoutView):
-    template_name = 'login.html'
+    template_name = 'user/login.html'
 
 
 class HomeUserView(DetailView):
-    template_name = 'dashboard.html'
+    template_name = 'user/dashboard.html'
     model = Company
     form_class = UserForm
 
@@ -41,7 +41,7 @@ class HomeUserView(DetailView):
 
     def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
-            return redirect('login')
+            return redirect('user/login')
         else:
             return super(HomeUserView, self).dispatch(request, *args, **kwargs)
 
@@ -145,11 +145,11 @@ def create_user_and_company(request):
     else:
         form = CreateUserForm()
 
-    return render(request, 'create.html', {'form': form, 'formapartment': formcompany})
+    return render(request, 'user/create.html', {'form': form, 'formapartment': formcompany})
 
 
 class ListUserView(ListView):
-    template_name = 'list.html'
+    template_name = 'user/list.html'
     model = User
     paginate_by = 6
 
@@ -196,7 +196,7 @@ class ListUserView(ListView):
 
 
 class UpdateUserView(UpdateView):
-    template_name = 'update.html'
+    template_name = 'user/update.html'
     model = User
     form_class = UserForm
     success_url = '/list/'
@@ -212,7 +212,7 @@ class UpdateUserView(UpdateView):
 
 
 class DeleteUserView(DeleteView):
-    template_name = 'delete.html'
+    template_name = 'user/delete.html'
     model = User
     success_url = '/list/'
 

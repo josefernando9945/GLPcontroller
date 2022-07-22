@@ -1,109 +1,99 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block content %}
 
 
-    <div class="container-fluid mt-5">
-        {% include "includes/messages.html" %}
+    <!-- Header -->
+    <!-- Header -->
+
+    <!-- Page content -->
+    <div class="container-fluid mt-8 ">
         <!-- Table -->
         <div class="row">
             <div class="col">
                 <div class="card">
                     <!-- Card header -->
-                    <div class="card-header d-inline-flex justify-content-between">
-                        <h5 class="mb-0 ">Usuários ({{ object_list.count }})</h5>
-                        <a href="{% url 'create' %}" class="btn btn-sm btn-primary">Novo Usuario</a>
+                    <div class="card-header d-flex justify-content-between">
+                        <h3 class="mb-0">Lista de Usuarios</h3>
+                         <div class="col-lg-6 col-5 text-right">
+                        <a href="{% url 'create' %}" class="btn btn-sm btn-success">Cadrastar Usuario</a>
+                             <div class="input-group d-flex justify-content-end mx-2">
+                                 <form action="" type="submit">
+                                     <input class="form-control" name="search" placeholder="Buscar" type="text">
+                                 </form>
+                             </div></a>
                     </div>
-                    <div class=" table-responsive py-4 px-4">
-                        <table class="table align-items-center">
+                    </div>
+                      <div class="table-responsive py-4 px-4">
+                        <table class="table align-items-center table-flush">
                             <thead class="thead-light">
-                            <tr class="text-center">
-                                <th scope="col" class="px-1">Nome</th>
-                                <th scope="col" class="px-1">Sobrenome</th>
-                                <th scope="col" class="px-1">Email</th>
-                                <th scope="col" class="px-1">Data de Criação</th>
-                                <th scope="col" class="px-1">Condominio</th>
-                                <th scope="col" class="px-1">Ativo</th>
+                            <tr>
+                                <th class="col">Nome</th>
+                                <th class="col">Telefone</th>
+                                <th class="col">Rua</th>
+                                <th class="col">Bairro</th>
+                                <th class="col">Cidade</th>
+                                <th class="col">Estado</th>
+                                <th class="col">CEP</th>
 
 
-                                <th scope="col" class="px-1"></th>
+                                <th scope="col"></th>
+
                             </tr>
                             </thead>
                             <tbody class="list">
                             {% for user in object_list %}
-                                <tr class="text-center">
-                                <td>
-                                    <a class="text-sm" href="{% url 'profile_admin' user.id %}">
-                                        {{ user.first_name }}
-                                    </a>
-                                </td>
+                                <tr>
+                                        <td class="text-sm">
+                                            <a href="">
+                                                {{ user.first_name }} {{ user.last_name }}
+                                            </a>
+                                        </td>
+                                    <td class="text-sm">
+                                        {{ user.phone }}
+                                    </td>
+                                    <td class="text-sm">
+                                        {{ user.email }}
+                                    </td>
+                                    <td class="text-sm">
+                                        {{ user.district }}
+                                    </td>
+                                    <td class="text-sm">
+                                        {{ user.city }}
+                                    </td>
+                                    <td class="text-sm">
+                                        {{ user.state }}
+                                    </td>
+                                    <td class="text-sm">
+                                        {{ user.cep }}
+                                    </td>
+                                    <td class="text-right d-flex justify-content-center">
+                                        <div class="dropdown">
+                                            <button class="btn btn-sm btn-link" type="button"
+                                                    id="dropdownMenuButton" data-bs-toggle="dropdown" aria-haspopup="false"
+                                                    aria-expanded="false">
+                                                <i class="fas fa-ellipsis-v text-dark"></i>
 
-                                <td class="text-sm">
-                                    {{ user.last_name }}
-                                </td>
-                                <td class="text-sm">
-                                    {{ user.email }}
-                                </td>
-                                <td class="text-sm">
-                                   {{ user.created_at }}
-                                </td>
-                                <td class="text-sm">
-                                   {{ condo.name }}
-                                </td>
-                                <td class="text-sm">
-                                   {% if user.is_active %}
-                                <i class="fas fa-circle-check text-success"></i>
-                                       {% else %}
-                                   <i class="fas fa-circle-exclamation text-gray"></i>
-                                {% endif %}
-                                </td>
-                                <td class="text-right d-flex justify-content-center">
-                                    <div class="dropdown">
-                                        <button class="btn btn-sm btn-link " type="button"
-                                                id="dropdownMenu" data-bs-toggle="dropdown"
-                                                aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v text-dark"></i>
+                                            </button>
+                                            <ul class="dropdown-menu">
+                                                <li><a class="dropdown-item-text"
+                                                   href="{% url 'update' user.id %}">
+                                                    <i class="fas fa-user text-primary"></i>
+                                                    <span class="text-sm ">Editar</span>
+                                                </a></li>
 
-                                        </button>
-                                        <ul class="dropdown-menu">
-                                            <li><a class="dropdown-item-text"
-                                                   href="{% url 'update_admin' user.id %}">
-                                                <i class="fas fa-user text-primary "></i>
-                                                <span class="text-sm ">Editar</span>
-                                            </a></li>
-
-{#                                            <li><a class="dropdown-item-text"#}
-{#                                                   href="{% url 'delete' user.id %}">#}
-{#                                                <i class="fas fa-trash text-danger "></i>#}
-{#                                                <span class="text-sm ">Excluir</span>#}
-{#                                            </a></li>#}
-                                        </ul>
-                                    </div>
-                                </td>{% endfor %}
-                            </tr>
+                                                <li><a class="dropdown-item-text"
+                                                   href="{% url 'delete' user.id %}">
+                                                    <i class="fas fa-trash text-danger "></i>
+                                                    <span class="text-sm ">Excluir</span>
+                                                </a></li>
+                                            </ul>
+                                        </div>
+                                    </td>
+                                       {% endfor %}
+                                </tr>
                             </tbody>
                         </table>
-                    </div>
-                    <div class="card-footer py-4">
-                        <nav aria-label="...">
-                            <ul class="pagination justify-content-end mb-0">
-
-                                {% for num in paginator.page_range %}
-                                    <li class="page-item active">
-                                        <a class="page-link" href="?page={{ num }}" data-page="1">{{ num }}</a>
-                                    </li>
-                                {% endfor %}
-                                {% if page_obj.has_next %}
-
-                                    <li class="page-item">
-                                        <a class="page-link" href="?page={{ page_obj.next_page_number }}" data-page="2">
-                                            <i class="fas fa-angle-right"></i>
-                                            <span class="sr-only">Next</span>
-                                        </a>
-                                    </li>
-                                {% endif %}
-                            </ul>
-                        </nav>
                     </div>
                 </div>
             </div>
@@ -113,4 +103,3 @@
 
 
 {% endblock content %}
-

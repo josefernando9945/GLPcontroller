@@ -45,6 +45,8 @@ class User(AbstractBaseUser, PermissionsMixin, TimestampMixin):
         default=False,
     )
 
+    is_active = models.BooleanField(default=True, verbose_name="Is active")
+
     phone = models.CharField(
         max_length=255,
         blank=True,

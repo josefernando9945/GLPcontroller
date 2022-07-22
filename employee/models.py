@@ -57,7 +57,7 @@ class Employee(models.Model):
             verbose_name=_("Cidade"),
         )
 
-    Company = models.ForeignKey('controller.Company', on_delete=models.CASCADE, blank=True, null=True, verbose_name='Empresa')
+    Company = models.ForeignKey('company.Company', on_delete=models.CASCADE, blank=True, null=True, verbose_name='Empresa')
 
     def __str__(self):
         return self.username

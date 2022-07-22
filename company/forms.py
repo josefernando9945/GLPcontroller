@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import FileInput
 
-from controller.models import Company
+from company.models import Company
 
 
 class CompanyForm(forms.ModelForm):

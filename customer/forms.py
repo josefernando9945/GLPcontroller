@@ -1,10 +1,11 @@
 from django import forms
 
+from customer.models import Customer
 from employee.models import Employee
 
 
-class EmployeeForm(forms.ModelForm):
+class CustomerForm(forms.ModelForm):
     class Meta:
-        model = Employee
+        model = Customer
         fields = ['first_name', 'last_name', 'phone', 'street', 'number', 'district', 'city']
 

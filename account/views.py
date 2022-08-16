@@ -27,7 +27,7 @@ from account.forms import (
 )
 
 from account.models import User
-from company.forms import CreateCompanyForm
+from company.forms import CreateCompanyForm, CompanyForm
 from company.models import Company
 
 
@@ -49,16 +49,16 @@ class HomeUserView(LoginRequiredMixin, TemplateView):
 
 
 def create_user_and_company(request):
-    formcondominium = CreateCompanyForm()
+    formcompany = CompanyForm()
     form = CreateUserForm()
     if request.method == "POST":
         form = CreateUserForm(request.POST)
-        formcondo = CreateCompanyForm(request.POST)
+        formcompany = CreateCompanyForm(request.POST)
         # monthly_plan = MonthlyPlan.objects.filter()
 
-        if form.is_valid() and formcondo.is_valid():
+        if form.is_valid() and formcompany.is_valid():
             user = form.save()
-            condo = formcondo.save()
+            condo = formcompany.save()
             condo.user = user
             condo.save()
 
@@ -74,7 +74,7 @@ def create_user_and_company(request):
             return HttpResponseRedirect("/login")
 
     return render(
-        request, "user/create.html", {"form": form, "formapartment": formcondominium}
+        request, "user/create.html", {"form": form, "formcompany": formcompany}
     )
 
 

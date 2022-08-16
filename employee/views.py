@@ -1,18 +1,18 @@
-from django.shortcuts import render
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import CreateView, ListView, UpdateView, DeleteView
 
 from employee.forms import EmployeeForm
 from employee.models import Employee
 
 
-class CreateEmployeeView(CreateView):
+class CreateEmployeeView(LoginRequiredMixin, CreateView):
     template_name = 'employee/employee_create.html'
     model = Employee
     form_class = EmployeeForm
     success_url = '/list/employee/'
 
 
-class ListEmployeeView(ListView):
+class ListEmployeeView(LoginRequiredMixin, ListView):
     template_name = 'employee/employee_list.html'
     model = Employee
     form_class = EmployeeForm
@@ -31,7 +31,7 @@ class ListEmployeeView(ListView):
         return result
 
 
-class UpdateEmployeeView(UpdateView):
+class UpdateEmployeeView(LoginRequiredMixin, UpdateView):
     template_name = 'employee/employee_update.html'
     model = Employee
     form_class = EmployeeForm
@@ -42,7 +42,7 @@ class UpdateEmployeeView(UpdateView):
         context['employee'] = Employee.objects.filter()
         return context
 
-class DeleteEmployeeView(DeleteView):
+class DeleteEmployeeView(LoginRequiredMixin, DeleteView):
     template_name = 'employee/employee_delete.html'
     model = Employee
     success_url = '/list/employee/'

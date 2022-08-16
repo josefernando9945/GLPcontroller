@@ -59,11 +59,19 @@
 <!--                </div>-->
 <!--            </li>-->
             <li class="nav-item">
-                <a href="{% url 'list_employee' %}" class="nav-link ">
+                <a href="{% url 'list_customer' %}" class="nav-link ">
                     <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
                         <i class="ni ni-building text-success text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text ms-1">Clientes</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'list_product' %}" class="nav-link ">
+                    <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
+                        <i class="ni ni-building text-success text-sm opacity-10"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Produtos</span>
                 </a>
             </li>
             <li class="nav-item">
@@ -77,9 +85,17 @@
             <li class="nav-item">
                 <a href="{% url 'list' %}" class="nav-link ">
                     <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
-                        <i class="fas fa-user text-success text-sm opacity-10"></i>
+                        <i class="ni ni-building text-success text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text ms-1">Usuários</span>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="{% url 'list_company' %}" class="nav-link ">
+                    <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
+                        <i class="fas fa-user text-success text-sm opacity-10"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Empresa</span>
                 </a>
             </li>
             <li class="nav-item">

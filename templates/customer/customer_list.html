@@ -1,4 +1,4 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 
 {% block content %}
 
@@ -7,20 +7,29 @@
     <!-- Header -->
 
     <!-- Page content -->
-    <div class="container-fluid mt-8">
+    <div class="container-fluid mt-8 ">
         <!-- Table -->
         <div class="row">
             <div class="col">
                 <div class="card">
                     <!-- Card header -->
-                    <div class="card-header">
-                        <h4 class="mb-0">Dados da Empresa</h4>
+                    <div class="card-header d-flex justify-content-between">
+                        <h4 class="mb-0">Lista de Clientes</h4>
+                         <div class="col-lg-6 col-5 text-right">
+                        <a href="{% url 'create_customer' %}" class="btn btn-sm btn-success">Cadrastar Cliente</a>
+                             <div class="input-group d-flex justify-content-end mx-2">
+                                 <form action="" type="submit">
+                                     <input class="form-control" name="search" placeholder="Buscar" type="text">
+                                 </form>
+                             </div></a>
                     </div>
-                    <div class="table-responsive py-4">
+                    </div>
+                      <div class="table-responsive py-4 px-4">
                         <table class="table align-items-center table-flush">
-                            <thead class="thead-light"  >
+                            <thead class="thead-light">
                             <tr>
-                                <th class="col">Nome do condominio</th>
+                                <th class="col">Nome</th>
+                                <th class="col">Telefone</th>
                                 <th class="col">Rua</th>
                                 <th class="col">Bairro</th>
                                 <th class="col">Cidade</th>
@@ -33,36 +42,30 @@
                             </tr>
                             </thead>
                             <tbody class="list">
-                            {% for company in object_list %}
+                            {% for customer in object_list %}
                                 <tr>
-                                    <th scope="row">
-                                        <div class="media align-items-center">
-                                            <a href="" class="avatar rounded-circle mr-3">
-                                                <img alt="{{ condominium }}" src="{{ condominium.picture }}">
+                                        <td class="text-sm">
+                                            <a href="">
+                                                {{ customer.first_name }} {{ customer.last_name }}
                                             </a>
-                                            <div class="media-body">
-                                                    <span class="name mb-0 text-sm ">
-{#                                                        <a href="{% url 'profile_company' company.id %}">#}
-                                                            {{ company.name }}
-                                                        </a>
-                                                    </span>
-                                            </div>
-                                        </div>
-                                    </th>
-                                    <td class="text-center">
-                                        {{ company.street }}
+                                        </td>
+                                    <td class="text-sm">
+                                        {{ customer.phone }}
                                     </td>
-                                    <td class="text-center">
-                                        {{ company.district }}
+                                    <td class="text-sm">
+                                        {{ customer.email }}
                                     </td>
-                                    <td class="text-center">
-                                        {{ company.city }}
+                                    <td class="text-sm">
+                                        {{ customer.district }}
                                     </td>
-                                    <td class="text-center">
-                                        {{ company.state }}
+                                    <td class="text-sm">
+                                        {{ customer.city }}
                                     </td>
-                                    <td class="text-center">
-                                        {{ company.cep }}
+                                    <td class="text-sm">
+                                        {{ customer.state }}
+                                    </td>
+                                    <td class="text-sm">
+                                        {{ customer.cep }}
                                     </td>
                                     <td class="text-right d-flex justify-content-center">
                                         <div class="dropdown">
@@ -74,22 +77,21 @@
                                             </button>
                                             <ul class="dropdown-menu">
                                                 <li><a class="dropdown-item-text"
-                                                   href="{% url 'update_company' company.id %}">
+                                                   href="{% url 'update_customer' customer.id %}">
                                                     <i class="fas fa-user text-primary"></i>
                                                     <span class="text-sm ">Editar</span>
                                                 </a></li>
 
                                                 <li><a class="dropdown-item-text"
-                                                   href="{% url 'delete_company' company.id %}">
+                                                   href="{% url 'delete_customer' customer.id %}">
                                                     <i class="fas fa-trash text-danger "></i>
                                                     <span class="text-sm ">Excluir</span>
                                                 </a></li>
                                             </ul>
                                         </div>
                                     </td>
-
+                                       {% endfor %}
                                 </tr>
-                            {% endfor %}
                             </tbody>
                         </table>
                     </div>

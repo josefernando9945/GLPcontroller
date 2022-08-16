@@ -19,13 +19,19 @@ class Company(models.Model):
         verbose_name='Nome da empresa',
     )
 
-
-    picture = models.ImageField(
-        verbose_name="Foto do Perfil",
-        upload_to=os.path.join("condo/profile"),
+    phone = models.CharField(
+        max_length=255,
+        blank=True,
         null=True,
-        blank=True
+        verbose_name="Telefone",
     )
+
+    # picture = models.ImageField(
+    #     verbose_name="Foto do Perfil",
+    #     upload_to=os.path.join("company/profile"),
+    #     null=True,
+    #     blank=True
+    # )
 
     street = models.CharField(
         max_length=255,

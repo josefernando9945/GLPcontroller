@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  <!-- Main content -->
+  <div class="main-content" id="panel">
+
+    <!-- Header -->
+    <!-- Header -->
+
+    <!-- Page content -->
+    <div class="container-fluid mt-8">
+      <div class="row">
+        <div class="col-xl-12 order-xl-1">
+          <div class="card">
+            <div class="card-header">
+              <div class="row align-items-center">
+                <div class="col-8">
+                  <h3 class="mb-0">Editar Funcionario </h3>
+                </div>
+              </div>
+            </div>
+            <div class="card-body">
+               <form method="post" action="." enctype="multipart/form-data" class="">
+                                    {% csrf_token %}
+                                {% include "includes/form.html" %}
+
+               <hr class="my-4" />
+              <div class="row align-items-center">
+                <div class="">
+                  <h3 class="mb-0"> </h3>
+                </div>
+                <div class=" col-12 text-right d-flex justify-content-between">
+                    <a href="{% url 'list_product' %}" class="btn btn-neutral">Voltar</a>
+                 <button type="submit" class="btn btn-primary">Salvar</button>
+                </div>
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+      </div>
+      <!-- Footer -->
+
+         {% endblock content %}
+
+{% block extra_script %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.11/jquery.mask.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#id_phone').mask("(00) 00000-0000");
+            $('#id_birthday').mask("00/00/0000");
+            $('#id_cep').mask("00000-000");
+        });
+    </script>
+{% endblock extra_script %}
+

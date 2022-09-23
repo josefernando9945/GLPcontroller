@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load i18n static %}
+{% block sidebar %}
+    {% if request.user.is_administrator %}
+{#        {% include 'includes/administrator/sidebar.html' %}#}
+    {% else %}
+{#        {% include 'includes/authenticated/sidebar.html' %}#}
+    {% endif %}
+{% endblock %}
+
+{% block navbar %}
+    {% include 'includes/navbar.html' %}
+{% endblock %}
+
+{% block content %}
+
+
+    <!-- Page content -->
+    <div class="container-fluid mt-8">
+        <div class="row">
+            <div class="col-8 mx-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <form method="post" action=".">{% csrf_token %}
+                            <h1 class="text-center">
+                                {% trans 'Deseja realmente apagar o item:' %}</h1>
+                                <h1 class="text-center"><strong>{{ object_list }}</strong></h1>
+
+                            <div class="form-group text-center mt-5">
+                                <a class="btn btn-neutral" href="javascript: history.back();" value="{% trans 'Confirmar' %}">
+                                    {% trans 'Cancelar' %}
+                                </a>
+                                <input class="btn btn-danger" type="submit" value="{% trans 'Confirmar' %}">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block footer %}
+{#    {% include 'includes/authenticated/footer.html' %}#}
+{% endblock footer %}

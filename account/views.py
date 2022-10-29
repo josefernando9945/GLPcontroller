@@ -201,7 +201,6 @@ class UpdateUserAdministratorView(LoginRequiredMixin, UpdateView):
         messages.error(self.request, "Ocorreu um erro no formulário abaixo!")
         return super().form_invalid(form)
 
-
 class ProfileUserAdministratorView(UpdateView):
     template_name = "user/profile_admin.html"
     model = User
